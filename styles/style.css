@@ -7,20 +7,20 @@
 body {
 	overflow: hidden;
 }
-#obstacle {
+/*#obstacle {
   background-color: black;
-  height: 30px;
   width: 10px;
   margin-bottom: -40px;
-/*  margin-left: 400px; */
 }
+*/
 #player {
   margin-bottom: 0;
+  background-color: black;
   width: 1%;
   border: 1px solid red;
   border-radius: 50%;
 }
 .dynamicobstacle {
-  height: 30px;
 	background-color: red;
+  position: relative;
 }

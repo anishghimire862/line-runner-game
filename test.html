@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Awesome Game</title>
+    <link rel="stylesheet" type="text/css" href="./styles/style.css">
+  </head>
+  <body onload="dynamicObstacle()">
+    <div style="margin-top: 400px;" id="container">
+<!--      <div id="obstacle">
+   
+      </div>
+-->
+      <div class="box" id="box">
+
+      </div>
+      <div>
+        <p id="player" class="player"> P </p>
+      </div>
+      <div id="line">
+            
+      </div>
+    </div>   
+    <div id="controls" class="controls">
+      <button onclick="topControl()"> Top </button>
+      <button onclick="rightControl()"> Right </button>
+      <button onclick="startGame()"> Start </button>
+    </div>
+  <script>
+    newObstacle = document.createElement("div");
+    newObstacle.id = "obstacle";
+    function dynamicObstacle() {
+			newObstacle.classList.add("dynamicobstacle");
+
+			newObstacle.style.position = "relative";
+			newObstacle.style.left = 400 + 'px';
+			newObstacle.style.width = 10 + 'px';
+			newObstacle.style.height = 30 + 'px';
+			newObstacle.style.bottom = -40 + 'px';
+
+			var currentDiv = document.getElementById("box");
+			currentDiv.after(newObstacle);
+      return newObstacle;
+    }
+    console.log(dynamicObstacle().style.left);
+        console.log(dynamicObstacle().style.left);
+
+  </script>
+  </body>
+</html>
+
