@@ -3,13 +3,22 @@
   <head>
     <title>My Awesome Game</title>
     <link rel="stylesheet" type="text/css" href="./styles/style.css">
+    <script>
+			.obstacle {
+				background-color: red;
+				display: inline-block;
+        max-width: 10px;
+			}
+		</script>
   </head>
   <body onload="dynamicObstacle()">
     <div style="margin-top: 400px;" id="container">
-<!--      <div id="obstacle">
-   
+			<div class="obstacle">
+   i
       </div>
--->
+      <div class="obstacle">
+   i
+      </div>
       <div class="box" id="box">
 
       </div>
@@ -23,26 +32,38 @@
     <div id="controls" class="controls">
       <button onclick="topControl()"> Top </button>
       <button onclick="rightControl()"> Right </button>
-      <button onclick="startGame()"> Start </button>
+      <button onclick="dynamicObstacle()"> Start </button>
     </div>
   <script>
-    newObstacle = document.createElement("div");
-    newObstacle.id = "obstacle";
+    var left = 300;
+		var currentDiv = null;
+		var obstacles = [];
+		var i;
+		var newObstacle;
     function dynamicObstacle() {
-			newObstacle.classList.add("dynamicobstacle");
+			var width = 30;
+			left -= 50;
 
-			newObstacle.style.position = "relative";
-			newObstacle.style.left = 400 + 'px';
-			newObstacle.style.width = 10 + 'px';
-			newObstacle.style.height = 30 + 'px';
-			newObstacle.style.bottom = -40 + 'px';
-
-			var currentDiv = document.getElementById("box");
-			currentDiv.after(newObstacle);
-      return newObstacle;
+			obstacles.push(newObstacle.style.left, newObstacle.style.minWidth);
     }
-    console.log(dynamicObstacle().style.left);
-        console.log(dynamicObstacle().style.left);
+
+    for(i=0; i<obstacles.length; i++) {
+			newObstacle = document.createElement("div");
+      // newObstacle.id = "obstacle";
+
+      newObstacle.classList.add("dynamicobstacle");
+
+      newObstacle.style.position = "relative";
+      newObstacle.style.display = "inline-block";
+      newObstacle.style.left = left + 'px';
+      newObstacle.style.minWidth = width + 'px';
+      newObstacle.style.height = 30 + 'px';
+      newObstacle.style.bottom = -40 + 'px';
+
+      var currentDiv = document.getElementById("box");
+      currentDiv.after(newObstacle);
+
+		}
 
   </script>
   </body>
