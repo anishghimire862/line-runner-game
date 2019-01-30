@@ -20,13 +20,16 @@ var left = [
 ];
 var obstacles = [];
 var o1 = null;
+var position = -48;
+var positionY = -55;
+var difference = -16;
 playerObject = document.getElementById("player");
 
 playerObject.style.position = "relative";
 playerObject.style.left = "50px";
 playerObject.style.bottom = "0px";
-playerObject.style.width = "10px";
-playerObject.style.height = "10px";
+playerObject.style.width = "16px";
+playerObject.style.height = "18px";
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -34,8 +37,16 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function animatePlayer() {
+	document.getElementById("player").style.backgroundPosition = position +'px ' + positionY +'px';
+	if(position > -80) {
+		position += difference;
+	} else {
+		position = -48;
+	}
+}
+
 // dynamic div
-// newObstacle.id = "obstacle";
 function dynamicObstacle() {
 	let i = Math.floor(Math.random()*4);
 	let j = Math.floor(Math.random()*2);
@@ -51,7 +62,6 @@ function dynamicObstacle() {
   newObstacle.style.backgroundColor = colors[i]
   var currentDiv = document.getElementById("box");
   currentDiv.after(newObstacle);
-	// return newObstacle;
 	let obstacle = newObstacle;
 	if(obstacles.length == 2) { 
 		obstacles = [];
@@ -61,14 +71,8 @@ function dynamicObstacle() {
 	  obstacles.push(obstacle);
  
 }
-// var o1 = dynamicObstacle();
 
 function generateObstacle() {
-/*	var obstacleInterval1 = setInterval(function() {
-    dynamicObstacle();
-  },
-    6000);
-*/
 	dynamicObstacle();
 	dynamicObstacle();
 }
@@ -85,21 +89,16 @@ function moveToBottom(delay) {
   	playerObject.style.bottom = parseInt(playerObject.style.bottom) + -10 + 'px';
   }
   if(parseInt(playerObject.style.bottom) == 0) { 
-		jump = false;
   	clearInterval(delay);
   }
 }
 function moveToTop(delayTop) {
- // 	playerObject.style.bottom = parseInt(playerObject.style.bottom) + 60 + 'px';
 	if(parseInt(playerObject.style.bottom) == 0)
 	  playerObject.style.bottom = parseInt(playerObject.style.bottom) + 60 + 'px';
 	if(parseInt(playerObject.style.bottom) == 60)
 		clearInterval(delayTop);
 }  
 function topControl() {
-  // playerObject.style.bottom = parseInt(playerObject.style.bottom) + 60 + 'px';
-  // playerObject.style.left = parseInt(playerObject.style.left) + 30 + 'px';
-	jump = true;
 	var delayTop = setInterval(
     function() {
       moveToTop(delayTop)
@@ -122,18 +121,11 @@ document.body.onkeydown = function(e) {
 
 function startGame() {
   animate = setInterval(animateObstacle, 5);
+	setInterval(animatePlayer, 100);
 }
  
 function animateObstacle() {
-/*
-  o1.style.left = parseInt(o1.style.left) + -1 + 'px';      
-	if(o1.style.left == 0 + 'px') {
-    // clearInterval(obstacleInterval);
-    
-    points++;
-    o1.style.left = 400 + 'px';
-  }
-*/
+	console.log(animate);
 	var o1 = null;
 	for(var i=0; i<obstacles.length; i++) {
 		obstacles[i].style.left = parseInt(obstacles[i].style.left) + -1 + 'px';
@@ -149,13 +141,12 @@ function animateObstacle() {
 		var obstacleBottom = o1.style.bottom;
 		var playerBottom = playerObject.style.bottom;
 		var playerHeight = playerObject.style.height;
-    detectCollision(playerLeft, obstacleLeft, obstacleHeight, obstacleWidth, obstacleBottom, playerWidth, playerBottom, playerHeight);
+    // detectCollision(playerLeft, obstacleLeft, obstacleHeight, obstacleWidth, obstacleBottom, playerWidth, playerBottom, playerHeight);
   }
 }
 
 var detectCollision = function(playerLeft, obstacleLeft, obstacleHeight, obstacleWidth, obstacleBottom, playerBottom, playerWidth, playerHeight) {
 	if(((parseInt(playerObject.style.bottom))<20) && (parseInt(obstacleWidth)+parseInt(obstacleLeft)) <= (parseInt(playerLeft) + 10)) {
-		console.log("pb " +playerBottom + "ow " + obstacleWidth + "ol" + obstacleLeft + "pl " + playerLeft + "pw " +10);
 		alert("You're out.");
 		location.reload();
 	}

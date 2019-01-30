@@ -7,19 +7,9 @@
 body {
 	overflow: hidden;
 }
-/*#obstacle {
-  background-color: black;
-  width: 10px;
-  margin-bottom: -40px;
-}
-*/
 #player {
   margin-bottom: 0;
-  background-color: black;
-  border: 1px solid red;
-  border-radius: 50%;
-	
-	background: url('../dog.png') 0px 0px;
+	background: url('../captain.png') -49px -55px;
 }
 .dynamicobstacle {
 	background-color: red;
