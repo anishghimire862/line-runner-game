@@ -18,6 +18,8 @@ body {
   background-color: black;
   border: 1px solid red;
   border-radius: 50%;
+	
+	background: url('../dog.png') 0px 0px;
 }
 .dynamicobstacle {
 	background-color: red;
