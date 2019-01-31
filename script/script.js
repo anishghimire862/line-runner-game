@@ -1,6 +1,6 @@
 var playerObject = null;
 var animate;
-var jump = false;
+var gameOver = false;
 var points = 0;
 var sizes = [
 	30,
@@ -28,6 +28,7 @@ playerObject = document.getElementById("player");
 playerObject.style.position = "relative";
 playerObject.style.left = "50px";
 playerObject.style.bottom = "0px";
+// 16 18
 playerObject.style.width = "16px";
 playerObject.style.height = "18px";
 
@@ -114,14 +115,17 @@ function topControl() {
  
 
 document.body.onkeydown = function(e) {
-  if(e.keyCode == 32) {
+  if(e.keyCode == 38) {
     topControl();
   }
+	if(e.keyCode == 32) {
+		startGame();
+	}
 }
 
 function startGame() {
   animate = setInterval(animateObstacle, 5);
-	setInterval(animatePlayer, 100);
+	playerAnimate = setInterval(animatePlayer, 100);
 	document.getElementById("startGameBtn").disabled = true;
 }
  
@@ -134,22 +138,39 @@ function animateObstacle() {
 		if(o1.style.left == 0 + 'px') {
     	o1.style.left = getRandomInt(150,400) + 'px';
 		}
-    var playerLeft = playerObject.style.left;
-		var playerWidth = playerObject.style.width;
-    var obstacleLeft = o1.style.left;
-    var obstacleHeight = o1.style.height;
-    var obstacleWidth = o1.style.minWidth;
-		var obstacleBottom = o1.style.bottom;
-		var playerBottom = playerObject.style.bottom;
-		var playerHeight = playerObject.style.height;
-    detectCollision(playerLeft, obstacleLeft, obstacleHeight, obstacleWidth, obstacleBottom, playerWidth, playerBottom, playerHeight);
+    detectCollision();
   }
 }
 
-var detectCollision = function(playerLeft, obstacleLeft, obstacleHeight, obstacleWidth, obstacleBottom, playerBottom, playerWidth, playerHeight) {
-	if(parseInt(playerObject.style.bottom) <= 30) {
-    if((parseInt(playerObject.style.left) - parseInt(obstacles[0].style.left)) == 0 || (parseInt(playerObject.style.left)-parseInt(obstacles[1].style.      left)) == 0) {
-      console.log("May be a collision.");
+var detectCollision = function() {
+	var playerLeft = parseInt(playerObject.style.left);
+  var playerWidth = parseInt(playerObject.style.width);
+  var obstacle1left = parseInt(obstacles[0].style.left);
+  var obstacle1height = parseInt(obstacles[0].style.height);
+  var obstacle1width = parseInt(obstacles[0].style.minWidth);
+  var obstacle1bottom = parseInt(obstacles[0].style.bottom);
+
+  var obstacle2left = parseInt(obstacles[1].style.left);
+  var obstacle2height = parseInt(obstacles[1].style.height);
+  var obstacle2width = parseInt(obstacles[1].style.minWidth);
+  var obstacle2bottom = parseInt(obstacles[1].style.bottom);
+  var playerBottom = parseInt(playerObject.style.bottom);
+  var playerHeight = parseInt(playerObject.style.height);
+	if(playerBottom <= 28) {
+    if((playerLeft+playerWidth) - (obstacle1left+obstacle1width) == 0 ||
+		  (playerLeft+playerWidth) - (obstacle2left+obstacle2width) == 0) {
+      alert("May be a collision. -- left");
+			location.reload();
     }
   }
+
+	if((obstacle1left >= 50 && obstacle1left <= 60) || (obstacle2left >= 50 && obstacle2left <=60)) {
+		if(playerBottom > 28) {
+			if((playerBottom-obstacle1height == 0) && 
+				(playerBottom-obstacle2height == 0)) {
+		  	alert('top collision');
+      	location.reload();
+    	}
+		}
+	}
 }
