@@ -122,6 +122,7 @@ document.body.onkeydown = function(e) {
 function startGame() {
   animate = setInterval(animateObstacle, 5);
 	setInterval(animatePlayer, 100);
+	document.getElementById("startGameBtn").disabled = true;
 }
  
 function animateObstacle() {
@@ -141,13 +142,14 @@ function animateObstacle() {
 		var obstacleBottom = o1.style.bottom;
 		var playerBottom = playerObject.style.bottom;
 		var playerHeight = playerObject.style.height;
-    // detectCollision(playerLeft, obstacleLeft, obstacleHeight, obstacleWidth, obstacleBottom, playerWidth, playerBottom, playerHeight);
+    detectCollision(playerLeft, obstacleLeft, obstacleHeight, obstacleWidth, obstacleBottom, playerWidth, playerBottom, playerHeight);
   }
 }
 
 var detectCollision = function(playerLeft, obstacleLeft, obstacleHeight, obstacleWidth, obstacleBottom, playerBottom, playerWidth, playerHeight) {
-	if(((parseInt(playerObject.style.bottom))<20) && (parseInt(obstacleWidth)+parseInt(obstacleLeft)) <= (parseInt(playerLeft) + 10)) {
-		alert("You're out.");
-		location.reload();
-	}
+	if(parseInt(playerObject.style.bottom) <= 30) {
+    if((parseInt(playerObject.style.left) - parseInt(obstacles[0].style.left)) == 0 || (parseInt(playerObject.style.left)-parseInt(obstacles[1].style.      left)) == 0) {
+      console.log("May be a collision.");
+    }
+  }
 }
