@@ -1,9 +1,7 @@
 var playerObject = null;
 var animate;
-var gameOver = false;
 var score = 0;
 var leftPos = 400;
-var highScore = 0;
 var sizes = [
 	30,
 	20,
@@ -58,14 +56,17 @@ function dynamicObstacle() {
 	let j = Math.floor(Math.random()*2);
 	var newObstacle = document.createElement("div");
 	newObstacle.classList.add("dynamicobstacle");
+  newObstacle.classList.add("material-icons");
+	var content = document.createTextNode("pool");
+	newObstacle.appendChild(content);
   newObstacle.style.position = "relative";
-	newObstacle.style.height = 30 + 'px';
+	newObstacle.style.height = 20 + 'px';
   newObstacle.style.bottom = -40 + 'px';
   newObstacle.style.display = 'inline-block';
   newObstacle.style.left = leftPos + 'px';
 	leftPos = 250;
 	newObstacle.style.minWidth = sizes[i] + 'px';
-  newObstacle.style.backgroundColor = colors[i]
+  // newObstacle.style.backgroundColor = colors[i]
   var currentDiv = document.getElementById("box");
   currentDiv.after(newObstacle);
 	
@@ -102,21 +103,22 @@ function moveToBottom(delay) {
 function moveToTop(delayTop) {
 	if(parseInt(playerObject.style.bottom) == 0)
 	  playerObject.style.bottom = parseInt(playerObject.style.bottom) + 60 + 'px';
-	if(parseInt(playerObject.style.bottom) == 60)
+	if(parseInt(playerObject.style.bottom) == 60) {
+	  var delay = setInterval(
+    function() {
+      moveToBottom(delay)
+    },
+	  80);
 		clearInterval(delayTop);
+	}
 }  
 function topControl() {
 	var delayTop = setInterval(
     function() {
       moveToTop(delayTop)
     },
-  70);
+  80);
 
-	var delay = setInterval(
-		function() {
-    	moveToBottom(delay) 
-		},
-	80);
 }
  
 

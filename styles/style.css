@@ -12,6 +12,9 @@ body {
 	background: url('../captain.png') -49px -55px;
 }
 .dynamicobstacle {
-	background-color: red;
   position: relative;
+}
+.background {
+	width: 500px;
+	background-image: linear-gradient(to right, rgba(255,0,0,0), rgba(255,0,0,1));
 }
