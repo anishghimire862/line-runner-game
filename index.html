@@ -3,8 +3,11 @@
 	<head>
 		<title>My Awesome Game</title>
     <link rel="stylesheet" type="text/css" href="./styles/style.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 	</head>
 	<body onload="generateObstacle()">
+		<span class="material-icons"> arrow_upward</span>
 		<div style="" id="container">
       <div class="box" id="box">
 
@@ -21,14 +24,10 @@
 			<button onclick="rightControl()"> Right </button>
       <button onclick="startGame()" id="startGameBtn"> Start </button>
 		</div>
-<!--
 		<div>
 			<p>Score: </p> 
-			<span id="score"> </span>
-			<p>High Score: </p>
-			<span id="highScore"> </span> 
+			<span id="score">0</span>
 		<div>
--->
 	<script src="./script/script.js"></script>
 	</body>
 </html>

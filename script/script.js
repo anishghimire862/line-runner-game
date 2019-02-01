@@ -1,7 +1,9 @@
 var playerObject = null;
 var animate;
 var gameOver = false;
-var points = 0;
+var score = 0;
+var leftPos = 400;
+var highScore = 0;
 var sizes = [
 	30,
 	20,
@@ -28,14 +30,17 @@ playerObject = document.getElementById("player");
 playerObject.style.position = "relative";
 playerObject.style.left = "50px";
 playerObject.style.bottom = "0px";
-// 16 18
 playerObject.style.width = "16px";
 playerObject.style.height = "18px";
 
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    let random = Math.floor(Math.random() * (max - min + 1)) + min;
+		let previous = random;
+		if(random == previous && random >= 380) 
+			random -= 50;
+		return random;
 }
 
 function animatePlayer() {
@@ -52,17 +57,18 @@ function dynamicObstacle() {
 	let i = Math.floor(Math.random()*4);
 	let j = Math.floor(Math.random()*2);
 	var newObstacle = document.createElement("div");
-
 	newObstacle.classList.add("dynamicobstacle");
   newObstacle.style.position = "relative";
 	newObstacle.style.height = 30 + 'px';
   newObstacle.style.bottom = -40 + 'px';
   newObstacle.style.display = 'inline-block';
-  newObstacle.style.left = left[j] + 'px';
+  newObstacle.style.left = leftPos + 'px';
+	leftPos = 250;
 	newObstacle.style.minWidth = sizes[i] + 'px';
   newObstacle.style.backgroundColor = colors[i]
   var currentDiv = document.getElementById("box");
   currentDiv.after(newObstacle);
+	
 	let obstacle = newObstacle;
 	if(obstacles.length == 2) { 
 		obstacles = [];
@@ -130,16 +136,16 @@ function startGame() {
 }
  
 function animateObstacle() {
-	console.log(animate);
 	var o1 = null;
 	for(var i=0; i<obstacles.length; i++) {
 		obstacles[i].style.left = parseInt(obstacles[i].style.left) + -1 + 'px';
 		o1 = obstacles[i];  
 		if(o1.style.left == 0 + 'px') {
-    	o1.style.left = getRandomInt(150,400) + 'px';
+    	o1.style.left = getRandomInt(200,400) + 'px';
 		}
-    detectCollision();
   }
+    detectCollision();
+		scoreCounter();
 }
 
 var detectCollision = function() {
@@ -173,4 +179,11 @@ var detectCollision = function() {
     	}
 		}
 	}
+}
+function scoreCounter() {
+	if(parseInt(obstacles[0].style.left) == parseInt(playerObject.style.left) ||
+		parseInt(obstacles[1].style.left) == parseInt(playerObject.style.left)) {
+		score++;		
+	}
+	document.getElementById("score").innerHTML = score;
 }
